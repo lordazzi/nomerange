@@ -1,0 +1,44 @@
+<script>
+"use strict";
+function numberToLetter(n) {
+    var letras = [
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+        'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+        's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' '
+    ];
+
+    var numbers = [];
+    while (n >= letras.length) {
+        numbers.push(n % letras.length);
+        n = Math.floor(n / letras.length);
+    }
+
+    if (n != 0) {
+        numbers = [ n - 1 ].concat(numbers.reverse());
+    }
+
+    var palavra = [];
+    numbers.forEach(no => {
+        palavra.push(letras[no]);
+    });
+
+    palavra = palavra.join('');
+    palavra = palavra.split(' ');
+    for (var i = 0; i < palavra.length; i++) {
+        if (palavra[i][0]) {
+            palavra[i] = palavra[i].replace(/^./, palavra[i][0].toUpperCase());
+        }
+    }
+
+    return palavra.join(' ');
+}
+
+function nomear() {
+    document.getElementById('number').innerText = document.getElementById('nomerange').value;
+    document.getElementById('nome').innerText = numberToLetter(document.getElementById('nomerange').value);
+}
+</script>
+
+<input id="nomerange" style="width:100%" type="range" min="0" max="531441" onchange="nomear()">
+<div id="nome"></div>
+<div id="number"></div>
